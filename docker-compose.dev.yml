@@ -1,0 +1,41 @@
+services:
+  backend: &backend
+    container_name: mindbin-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    tty: true
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/opt/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - mindbin-net
+
+  db:
+    container_name: mindbin-db
+    image: postgres:15.4-alpine
+    tty: true
+    volumes:
+      - ./.docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mindbin-data:/var/lib/postgresql/data/
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: mindbin
+      POSTGRES_USER: mindbin
+      POSTGRES_PASSWORD: password
+    networks:
+      - mindbin-net
+
+volumes:
+  mindbin-data:
+    driver: local
+
+networks:
+  mindbin-net:
+    driver: bridge

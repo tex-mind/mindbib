@@ -1,0 +1,12 @@
+-r base.txt
+
+ruff~=0.4.1
+pre-commit~=3.7.0
+django-debug-toolbar~=4.3.0
+django-extensions~=3.2.3
+django-stubs~=4.2.7 
+django-silk~=5.1.0
+nplusone~=1.0.0 
+django-sql-explorer~=4.0.2
+memory-profiler~=0.61.0
+Pympler~=1.0.1 
