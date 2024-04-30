@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend-test:
+    container_name: mindin-backend-test
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    env_file:
+      - ./backend/.env.test
+    ports:
+      - "8000:8000"
+    networks:
+      - mindbin-test-net
+    depends_on:
+      - db-test
+
+  db-test:
+    container_name: mindin-db-test
+    extends:
+      file: docker-compose.base.yml
+      service: db
+    volumes:
+      - ./.docker/db/init_test.sql:/docker-entrypoint-initdb.d/init.sql
+      - mindbin-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: mindbin_test
+      POSTGRES_USER: mindbin
+      POSTGRES_PASSWORD: password
+    networks:
+      - mindbin-test-net
+
+networks:
+  mindbin-test-net:
+    driver: bridge
+
+volumes:
+  mindbin-data:
+    driver: local

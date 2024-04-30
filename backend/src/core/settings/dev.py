@@ -1,25 +1,17 @@
 from __future__ import annotations
 
-import os
 import socket
-import sys
 
 from .base import *  # noqa
 
-
-def zxc():
-    pass
-
-
-# ========================
+# ------------------------
 # DEVELOPMENT
-# ========================
-DEBUG = bool(os.getenv("DEBUG", "True"))
-TESTING = sys.argv[1:2] == ["test"]
+# ------------------------
+DEBUG = True
 
-# ========================
+# ------------------------
 # SITES
-# ========================
+# ------------------------
 ALLOWED_HOSTS = ["*"]
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -34,9 +26,21 @@ except OSError:
     # usually raised if this is being run outside of a docker container context
     INTERNAL_IPS = []
 
-
-# ========================
+# ------------------------
 # CSRF
-# ========================
+# ------------------------
 # CSRF_TRUSTED_ORIGINS = []
 CSRF_COOKIE_SECURE = False
+
+# ------------------------
+# APPS
+# ------------------------
+DEBUG_APPS = ["debug_toolbar", "django_extensions"]
+INSTALLED_APPS = BASE_APPS + DEBUG_APPS  # noqa: F405
+
+# ------------------------
+# MIDDLEWARE
+# ------------------------
+MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+] + MIDDLEWARE  # noqa

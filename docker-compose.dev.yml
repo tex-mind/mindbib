@@ -1,10 +1,13 @@
+version: '3.8'
+
 services:
-  backend: &backend
+  backend:
     container_name: mindbin-backend
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
     tty: true
+    restart: always
     env_file:
       - ./backend/.env
     volumes:
@@ -18,13 +21,13 @@ services:
 
   db:
     container_name: mindbin-db
-    image: postgres:15.4-alpine
+    extends:
+      file: docker-compose.base.yml
+      service: db
     tty: true
     volumes:
       - ./.docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mindbin-data:/var/lib/postgresql/data/
-    ports:
-      - '5432:5432'
     environment:
       POSTGRES_DB: mindbin
       POSTGRES_USER: mindbin
