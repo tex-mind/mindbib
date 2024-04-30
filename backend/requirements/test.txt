@@ -1,2 +1,4 @@
+-r base.txt
+
 factory-boy~=3.3.0
 Faker~=24.11.0 

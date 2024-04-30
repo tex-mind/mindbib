@@ -6,6 +6,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.test
+    tty: true
     env_file:
       - ./backend/.env.test
     ports:

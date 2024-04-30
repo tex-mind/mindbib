@@ -8,8 +8,6 @@ COPY requirements/ /opt/app/requirements/
 
 WORKDIR /opt/app/
 
-RUN pip install --no-cache-dir --upgrade -r requirements/dev.txt
+RUN pip install --no-cache-dir --upgrade -r requirements/test.txt
 
 COPY ./src/ /opt/app/
-
-CMD python manage.py test --settings=core.settings.test --noinput       
