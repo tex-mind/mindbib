@@ -1,3 +1,7 @@
 from __future__ import annotations
 
-urlpatterns: list = []
+from django.urls import include, path
+
+urlpatterns = [
+    path("", include("apps.urls", namespace="apps")),
+]

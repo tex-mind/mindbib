@@ -50,7 +50,7 @@ class TimeLoggingTestRunner(DiscoverRunner):
         if slow_tests:
             output_strings: list = []
 
-            title_string: str = "Slow Tests (>{:.03}s):".format(self.slow_test_threshold)
+            title_string: str = f"Slow Tests (>{self.slow_test_threshold:.03}s):"
             dashes_line: str = "-" * (len(title_string) + 4)
 
             result.stream.write("\n")
@@ -62,7 +62,7 @@ class TimeLoggingTestRunner(DiscoverRunner):
             result.stream.writeln("\n".join(output_strings))
 
             for test_name, execution_time in slow_tests:
-                result.stream.writeln("- ({:.03}s) {}".format(execution_time, test_name))
+                result.stream.writeln(f"- ({execution_time:.03}s) {test_name}")
 
             result.stream.write("\n")
 
