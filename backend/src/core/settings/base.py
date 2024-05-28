@@ -38,6 +38,8 @@ CSRF_COOKIE_AGE = 28800
 BASE_APPS = [
     # Project
     "apps.common",
+    "apps.i18n",
+    "apps.i18n.locale",
     "core",
 ]
 INSTALLED_APPS = BASE_APPS
